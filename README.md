@@ -1,10 +1,12 @@
 E-Commerce-Website-Using-Laravel
 
 Summary
+
 This is my first full e-commerce project.
 
 
-Key Features
+Key Features:
+
 Public User
 (i) Search Product
 (ii) View Product
