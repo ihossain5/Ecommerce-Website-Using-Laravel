@@ -39,13 +39,18 @@ class CategoryController extends Controller {
             'description' => 'required',
             'image'       => 'required|mimes:png,jpeg',
         ]);
-        $image = $request->file('image')->store('public/files');
-        Category::create([
-            'name'        => $request->name,
-            'slug'        => Str::slug($request->name),
-            'description' => $request->description,
-            'image'       => $image,
-        ]);
+        if ($request->hasFile('image')) {
+            $filename = $request->image->getClientOriginalName();
+            $request->image->storeAs('images', $filename, 'public');
+
+            Category::create([
+                'name'        => $request->name,
+                'slug'        => Str::slug($request->name),
+                'description' => $request->description,
+                'image'       => $filename,
+            ]);
+        }
+
         notify()->success('Category created successfully');
         return redirect()->route('category.index');
     }
@@ -80,14 +85,15 @@ class CategoryController extends Controller {
      */
     public function update(Request $request, $id) {
         $category = Category::find($id);
-        $image    = $category->image;
         if ($request->hasFile('image')) {
-            $image = $request->file('image')->store('public/files');
-            Storage::delete($request->$image);
+            $filename = $request->image->getClientOriginalName();
+            $image    = '/public/images/' . $category->image;
+            Storage::delete($image);
+            $request->image->storeAs('images', $filename, 'public');
         }
         $category->name        = $request->name;
         $category->description = $request->description;
-        $category->image       = $image;
+        $category->image       = $filename;
         $category->save();
         notify()->success('Category updated successfully');
         return redirect()->route('category.index');
@@ -101,9 +107,9 @@ class CategoryController extends Controller {
      */
     public function destroy($id) {
         $category = Category::find($id);
-        $filename = $category->image;
+        $image    = '/public/images/' . $category->image;
         $category->delete();
-        Storage::delete($filename);
+        Storage::delete($image);
         notify()->success('Category deleted successfully');
         return redirect()->route('category.index');
 

@@ -16,6 +16,9 @@
         <div class="card">
           <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h6 class="m-0 font-weight-bold text-primary">Category Tables</h6>
+            <a href="{{route('category.create')}}">
+                <button class="btn btn-facebook">Add new</button>
+            </a>
           </div>
           <div class="table-responsive">
             <table class="table align-items-center table-flush">
@@ -34,7 +37,7 @@
                     @foreach ($categories as $key=>$category)
                 <tr>
                 <td><a href="#">{{$key+1}}</a></td>
-                <td><img src="{{Storage::url($category->image)}}" width="100" alt="image"> </td>
+                <td><img src="{{asset('/storage/images/'.$category->image)}}" width="100" alt="image"> </td>
                   <td>{{$category->name}}</td>
                   <td>{{$category->description}}</td>
                   <td>

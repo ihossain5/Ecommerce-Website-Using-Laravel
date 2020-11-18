@@ -41,19 +41,22 @@ class ProductController extends Controller {
             'additional_info' => 'required',
             'category'        => 'required',
         ]);
-        $image = $request->file('image')->store('public/product');
+        if ($request->hasFile('image')) {
+            $filename = $request->image->getClientOriginalName();
+            $request->image->storeAs('products', $filename, 'public');
 
-        Product::create([
+            Product::create([
 
-            'name'            => $request->name,
-            'description'     => $request->description,
-            'image'           => $image,
-            'price'           => $request->price,
-            'additional_info' => $request->additional_info,
-            'category_id'     => $request->category,
-            'subcategory_id'  => $request->subcategory,
+                'name'            => $request->name,
+                'description'     => $request->description,
+                'image'           => $filename,
+                'price'           => $request->price,
+                'additional_info' => $request->additional_info,
+                'category_id'     => $request->category,
+                'subcategory_id'  => $request->subcategory,
 
-        ]);
+            ]);
+        }
         notify()->success('Product created successfully');
         return redirect()->route('product.index');
     }
@@ -88,13 +91,15 @@ class ProductController extends Controller {
      */
     public function update(Request $request, $id) {
         $product = Product::find($id);
-        $image   = $product->image;
         if ($request->hasFile('image')) {
-            $image = $request->file('image')->store('public/product');
-            Storage::delete($request->$image);
+            $image = '/public/products/' . $product->image;
+            Storage::delete($image);
+            $filename = $request->image->getClientOriginalName();
+            $request->image->storeAs('products', $filename, 'public');
+
             $product->name            = $request->name;
             $product->description     = $request->description;
-            $product->image           = $image;
+            $product->image           = $filename;
             $product->additional_info = $request->additional_info;
             $product->price           = $request->price;
             $product->category_id     = $request->category;
@@ -121,7 +126,7 @@ class ProductController extends Controller {
      */
     public function destroy($id) {
         $product  = Product::find($id);
-        $filename = $product->image;
+        $filename = '/public/products/' . $product->image;
         $product->delete();
         Storage::delete($filename);
         notify()->success('Product deleted successfully');

@@ -14,6 +14,9 @@
               <div class="card mb-6">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary">Create Sub Category</h6>
+                  <a class="btn btn-info" href="{{route('subcategory.index')}}">
+                    Back
+                 </a> 
                 </div> 
                 <div class="card-body">
                     <div class="form-group"> 

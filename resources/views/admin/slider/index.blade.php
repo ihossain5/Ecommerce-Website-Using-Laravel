@@ -15,7 +15,10 @@
         <!-- Simple Tables -->
         <div class="card">
           <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">Slider Tables</h6>
+            <h6 class="m-0 font-weight-bold text-primary">All Slider</h6>
+            <a class="btn btn-facebook" href="{{route('slider.create')}}">
+              Add new
+            </a>
           </div>
           <div class="table-responsive">
             <table class="table align-items-center table-flush">
@@ -33,7 +36,7 @@
                 <tr>
                 <td><a href="#">{{$key+1}}</a></td>
                 <td>
-                  <img src="{{Storage::url($slider->image)}}" width="100" alt="image">
+                  <img src="{{asset('/storage/slider/'.$slider->image)}}" width="100" alt="image">
                  </td>
                
                   <td>

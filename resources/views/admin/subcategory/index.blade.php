@@ -16,6 +16,9 @@
         <div class="card">
           <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h6 class="m-0 font-weight-bold text-primary">Subcategory Tables</h6>
+            <a href="{{route('subcategory.create')}}">
+              <button class="btn btn-facebook">Add new</button>
+          </a>
           </div>
           <div class="table-responsive">
             <table class="table align-items-center table-flush">

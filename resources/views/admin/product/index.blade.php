@@ -13,6 +13,9 @@
   <div class="card mb-4">
     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
       <h6 class="m-0 font-weight-bold text-primary">DataTables</h6>
+      <a href="{{route('product.create')}}">
+        <button class="btn btn-facebook">Add new</button>
+    </a>
     </div>
     <div class="table-responsive p-3">
       <table class="table align-items-center table-flush" id="dataTable">
@@ -44,7 +47,7 @@
           <tr>
             <td>{{ $product->name}} </td>
             <td>
-              <img src="{{Storage::url($product->image)}}" width="120" alt="image">
+              <img src="{{asset('/storage/products/'.$product->image)}}" width="120" alt="image">
             </td>
             <td>{!! $product->description !!} </td>
             <td>${{ $product->price }} </td>

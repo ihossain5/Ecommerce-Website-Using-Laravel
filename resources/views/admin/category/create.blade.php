@@ -10,11 +10,16 @@
     </div>
     <div class="row justify-content-center">
       <div class="col-lg-10">
+      
         <form action="{{route('category.store')}}" method="POST" enctype="multipart/form-data">@csrf
               <div class="card mb-6">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Create Category</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Create Category</h6>                 
+                  <a class="btn btn-info" href="{{route('category.index')}}">
+                    Back
+                  </a>
                 </div> 
+                
                 <div class="card-body">
                     <div class="form-group"> 
                       <label for="name">Name</label>
@@ -37,8 +42,9 @@
                     </div>
                     <div class="form-group">
                       <div class="custom-file"> 
-                        <input type="file" class="custom-file-input @error('image') is-invalid @enderror " id="customFile" name="image">
-                        <label class="custom-file-label " for="customFile">Choose file</label>
+                        <input type="file" onchange="previewFile(this);"  class="custom-file-input @error('image') is-invalid @enderror " id="customFile" name="image">
+                        <img id="previewImg" width="60">
+                        <label  class="custom-file-label " for="customFile">Choose file</label>
                          @error('image')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -48,7 +54,7 @@
                        
                     </div>
                    
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class=" btn btn-primary mt-5">Submit</button>
                 </div>
               </div>
             </form>

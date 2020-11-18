@@ -15,6 +15,9 @@
               <div class="card mb-6">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary">Update Category</h6>
+                  <a class="btn btn-info" href="{{route('category.index')}}">
+                    Back
+                 </a>
                 </div> 
                 <div class="card-body">
                     <div class="form-group"> 
@@ -40,9 +43,10 @@
                     </div>
                     <div class="form-group">
                       <div class="custom-file"> 
-                        <input type="file" class="custom-file-input @error('image') is-invalid @enderror " id="customFile" name="image">
+                        <input type="file" onchange="previewFile(this);" class="custom-file-input @error('image') is-invalid @enderror " id="customFile" name="image">
+                        <img id="previewImg" width="60">
                         <br> <br>
-                        <img src="{{Storage::url($category->image)}} " alt="image" width="110">
+                        <p>old image</p><img src="{{asset('/storage/images/'.$category->image)}} " alt="image" width="60">
                         <label class="custom-file-label " for="customFile">Choose file</label>
                          @error('image')
                         <span class="invalid-feedback" role="alert">
@@ -53,7 +57,7 @@
                        
                     </div>
                     <br> <br> <br>
-                   <div class="form-group mt-4">
+                   <div class="form-group">
                     <button type="submit" class="btn btn-primary">Update</button>   
                   </div> 
                     
